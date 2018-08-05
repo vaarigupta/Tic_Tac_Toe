@@ -3,15 +3,15 @@ import Square from './Square';
 class Board extends Component
 {
 
-	rendersquare(i)
+	renderSquare(i)
 	{
 		return(
-			<Square />)
+			<Square value={i}/>)
 	}
 	render()
 	{
 		return(
-			renderSquare(0)
+			this.renderSquare(0);
 			)
 	}
 }
