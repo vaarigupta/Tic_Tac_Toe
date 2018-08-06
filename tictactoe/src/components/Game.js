@@ -1,15 +1,21 @@
 import React,{Component} from 'react';
 import '../style.css';
-class Square extends Component
-{  
-	render()
-	{
-		return(
-			<td onClick={this.props.onClick}>{this.props.value} </td>
-			)
-	}
-}
+// class Square extends Component
+// {  
+// 	render()
+// 	{
+// 		return(
+// 			<td onClick={this.props.onClick}>{this.props.value} </td>
+// 			)
+// 	}
+// }
 
+function Square(props)
+{
+  return(
+   <td onClick={props.onClick}>{props.value} </td>
+  )
+}
 
 class Board extends Component
 {  
@@ -39,8 +45,17 @@ class Board extends Component
 			)
 	}
 	render()
-	{  
-		const status = 'Next player :'+(this.state.xIsNext ? 'X' :'O');
+	{   const winner = CalculateWinner(this.state.squares)
+		let status;
+		if(winner)
+		{
+           status = 'Hurray!!! ' +  winner + ' won the Game';
+		}
+		else
+		{
+           status = 'Next player :'+(this.state.xIsNext ? 'X' :'O');
+		}
+		 
 		return(
 		<div>
 		  {status}
@@ -74,5 +89,25 @@ class Game extends Component
    		<Board />)
    }
 }
-
+function CalculateWinner(square)
+{
+  let lines = [
+  [0,1,2],
+  [3,4,5],
+  [6,7,8],
+  [0,3,6],
+  [1,4,7],
+  [2,5,8],
+  [0,4,8],
+  [2,4,6]]
+  for(let i =0 ;i<lines.length;i++)
+  {
+  	const [a,b,c] = lines[i];
+  	if(square[a] && square[a]===square[b] && square[a]===square[c] )
+  	{
+  		return square[a]
+  	}
+  }
+  return null;
+}
 export default Game;
