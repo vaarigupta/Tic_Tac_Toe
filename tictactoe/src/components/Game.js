@@ -32,6 +32,8 @@ class Board extends Component
 	handleClick(i)
 	{
 		const squarecopy = this.state.squares.slice();
+		if(CalculateWinner(squarecopy) || squarecopy[i])
+			{return;}
 		squarecopy[i] = this.state.xIsNext ? 'X' : 'O';
 		this.setState({squares:squarecopy,
 			xIsNext: !this.state.xIsNext})
